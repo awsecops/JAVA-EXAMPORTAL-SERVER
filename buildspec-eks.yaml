@@ -32,7 +32,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
-      - docker build -t 504759753721.dkr.ecr.ap-south-1.amazonaws.com/eshop-server:latest:$CI_PIPELINE_IID .
+      - docker build -t 504759753721.dkr.ecr.ap-south-1.amazonaws.com/eshop-server:$CI_PIPELINE_IID .
 
   post_build:
     commands:
@@ -40,5 +40,5 @@ phases:
       - echo Pushing the Docker image...
       - docker push 504759753721.dkr.ecr.ap-south-1.amazonaws.com/eshop-server:$CI_PIPELINE_IID
       - echo Push the latest image to cluster
-      - kubectl set image deployment/shopping shopping=504759753721.dkr.ecr.ap-south-1.amazonaws.com/eshop-server:latest:$CI_PIPELINE_IID --record -n live
+      - kubectl set image deployment/shopping shopping=504759753721.dkr.ecr.ap-south-1.amazonaws.com/eshop-server:$CI_PIPELINE_IID --record -n live
       - kubectl rollout status deployment shopping -n live
